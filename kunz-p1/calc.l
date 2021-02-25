@@ -10,17 +10,15 @@ digit	([0-9])
 "println"       {       return(TOK_PRINTLN);}
 
 
-{digit}+	{
-		sscanf(yytext, "%d", &yylval);
-		return TOK_NUM;
+({digit}+[.]{digit}*)|({digit}*[.]{digit}+)	{
+		sscanf(yytext, "%f", &yylval);
+		return TOK_FLOAT;
 		}
 
 ";"	{	return(TOK_SEMICOLON);	}
 
 "+"	{	return(TOK_ADD);	}
-"-"	{	return(TOK_SUB);	}
 "*"	{	return(TOK_MUL);	}
-"/"	{	return(TOK_DIV);	}
 
 [ \n] 	{}
 
