@@ -7,19 +7,27 @@ digit	([0-9])
 
 %%
 
-"println"       {       return(TOK_PRINTLN);}
+"println"   {   return(TOK_PRINTLN);}
 
+"var"       {   return(TOK_VAR); }
 
-({digit}+[.]{digit}*)|({digit}*[.]{digit}+)	{
+([a-z])([a-zA-Z0-9]*) { 
+    sscanf(yytext, "%s", &yylval);
+    return TOK_ID;
+}
+
+({digit}+[.]{digit}+)	{
 		sscanf(yytext, "%f", &yylval);
 		return TOK_FLOAT;
-		}
+}
 
+"," {   return(TOK_COMMA);  }
 ";"	{	return(TOK_SEMICOLON);	}
-
 "+"	{	return(TOK_ADD);	}
 "*"	{	return(TOK_MUL);	}
 
+[ \s]   {}
+[ \t]   {}
 [ \n] 	{}
 
 .	{printf("Invalid character '%c', ignored\n", 

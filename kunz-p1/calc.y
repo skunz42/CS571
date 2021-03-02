@@ -2,7 +2,7 @@
 #include <stdio.h>
 %}
 
-%token TOK_SEMICOLON TOK_ADD TOK_MUL TOK_FLOAT TOK_PRINTLN TOK_ID
+%token TOK_SEMICOLON TOK_ADD TOK_MUL TOK_FLOAT TOK_PRINTLN TOK_VAR TOK_ID TOK_COMMA
 
 %union{
         float float_val;
@@ -27,7 +27,24 @@ expr_stmt:
 	   | TOK_PRINTLN expr TOK_SEMICOLON 
 		{
 			fprintf(stdout, "the value is %f\n", $2);
-		} 
+		}
+       | TOK_VAR ids TOK_SEMICOLON
+        {
+            //fprintf(stdout, "variable name = %s\n", $2);
+        }
+;
+
+ids:
+    TOK_ID
+    {
+        fprintf(stdout, "the variable's name is %s\n", $1);
+        //insert into symbol table
+    }
+    | ids TOK_COMMA ids
+    {
+        //symbol table insert 0.0
+        //$$ = $2;
+    }
 ;
 
 expr: 	 
