@@ -25,6 +25,7 @@ digit	([0-9])
 ";"	{	return(TOK_SEMICOLON);	}
 "+"	{	return(TOK_ADD);	}
 "*"	{	return(TOK_MUL);	}
+"=" {   return(TOK_EQUAL);  }
 
 [ \s]   {}
 [ \t]   {}
