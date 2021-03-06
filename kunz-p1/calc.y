@@ -3,10 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Basic outline from: https://www.gnu.org/software/bison/manual/bison.html#Multi_002dfunction-Calc
-
 typedef struct sym_table_elem {
-    char * name;
+    char name[100];
     float value;
     struct sym_table_elem * next;
 } sym_table_elem;
@@ -33,7 +31,7 @@ sym_table_elem * get_val(char *name) {
 
 void put_val(char *name, float val) {
     sym_table_elem * new_node = malloc(sizeof(sym_table_elem));
-    new_node->name = name;
+    strcpy(new_node->name, name);
     new_node->value = val;
     new_node->next = NULL;
     if (get_val(name) == NULL) {
@@ -64,8 +62,15 @@ void put_val(char *name, float val) {
     }
 }
 
-void print_list() {
-    printf("uwu\n");
+void print_table() {
+    sym_table_elem * runner = sym_table;
+    while (runner != NULL) {
+        if (runner == NULL) {
+            break;
+        }
+        printf("%s\t%f\n", runner->name, runner->value);
+        runner = runner->next;
+    }
 }
 
 %}
@@ -94,17 +99,23 @@ expr_stmt:
 	   expr TOK_SEMICOLON
 	   | TOK_PRINTLN expr TOK_SEMICOLON 
 		{
-			fprintf(stdout, "the value is %f\n", $2);
+			fprintf(stdout, "%f\n", $2);
 		}
-       | TOK_PRINTLN TOK_ID TOK_SEMICOLON
+       /*| TOK_PRINTLN TOK_ID TOK_SEMICOLON
         {
-            //fprintf(stdout, "yeet\n");
             sym_table_elem * ret_val = get_val($2);
-            fprintf(stdout, "%f\n", ret_val->value);
-        }
+            if (ret_val != NULL) {
+                fprintf(stdout, "%f\n", ret_val->value);
+            }
+        }*/
        | TOK_VAR ids TOK_SEMICOLON
         {
-            //fprintf(stdout, "variable name = %s\n", $2);
+        }
+       | TOK_ID TOK_EQUAL expr TOK_SEMICOLON
+        {
+            if (get_val($1) != NULL) {
+                put_val($1, $3);
+            }
         }
 ;
 
@@ -113,12 +124,12 @@ ids:
     {
         //fprintf(stdout, "the variable's name is %s\n", $1);
         //insert into symbol table
-        put_val($1, 0.0);
+        if (get_val($1) == NULL) {
+            put_val($1, 0.0);
+        }
     }
     | ids TOK_COMMA ids
     {
-        //symbol table insert 0.0
-        //$$ = $2;
     }
 ;
 
@@ -131,7 +142,16 @@ expr:
 	  {
 		$$ = $1 * $3;
 	  }
-	| TOK_FLOAT
+	| TOK_ID
+      {
+        if (get_val($1) != NULL) {
+            $$ = get_val($1)->value;
+        } else {
+            printf("uninitialized variable\n");
+            return 0;
+        }
+      }
+    | TOK_FLOAT
 	  { 	
 		$$ = $1;
 	  }
