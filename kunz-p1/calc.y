@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+int yyerror(char *s);
+
 typedef struct sym_table_elem {
     char name[100];
     float value;
