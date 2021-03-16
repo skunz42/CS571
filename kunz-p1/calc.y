@@ -4,6 +4,7 @@
 #include <string.h>
 
 int yyerror(char *s);
+extern int yylineno;
 
 typedef struct sym_table_elem {
     char name[100];
@@ -117,6 +118,9 @@ expr_stmt:
         {
             if (get_val($1) != NULL) {
                 put_val($1, $3);
+            } else {
+                printf("uninitialized variable\n");
+                return 0;
             }
         }
 ;
@@ -164,7 +168,7 @@ expr:
 
 int yyerror(char *s)
 {
-	printf("syntax error\n");
+	printf("Parsing error: line %d\n", yylineno);
 	return 0;
 }
 

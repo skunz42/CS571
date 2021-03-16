@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include "calc.tab.h"
+
 %}
 
 digit	([0-9])
@@ -31,8 +32,10 @@ digit	([0-9])
 [ \t]   {}
 [ \n] 	{}
 
-.	{printf("Invalid character '%c', ignored\n", 
-			yytext[0]);
+.	{
+        printf("Lexical analysis error: %s\n", 
+			yytext);
+        //printf("Parsing error: line %d\n", yylineno);
 	}
 
 %%
