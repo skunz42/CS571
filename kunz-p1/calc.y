@@ -119,7 +119,7 @@ expr_stmt:
             if (get_val($1) != NULL) {
                 put_val($1, $3);
             } else {
-                printf("uninitialized variable\n");
+                yyerror("");
                 return 0;
             }
         }
@@ -153,7 +153,7 @@ expr:
         if (get_val($1) != NULL) {
             $$ = get_val($1)->value;
         } else {
-            printf("uninitialized variable\n");
+            yyerror("");
             return 0;
         }
       }
