@@ -9,12 +9,6 @@
         var num_wrong = 0;
 
         function intAdd() {
-            /*var txt;
-            var msg = prompt("What is your name?");
-            if (msg != null && msg != "") {
-                txt = "Hello, " + msg;
-                document.write(txt);
-            }*/
             var num1 = Math.floor(Math.random()*10);
             var num2 = Math.floor(Math.random()*num1);
             var msg = prompt(num1 + " + " + num2);
@@ -30,8 +24,84 @@
             }
         }
 
+        function intSub() {
+            var num1 = Math.floor(Math.random()*10);
+            var num2 = Math.floor(Math.random()*num1);
+            var msg = prompt(num1 + " - " + num2);
+            num_answered++;
+            if (parseInt(msg) == num1-num2) {
+                num_correct++;
+                var txt = "Correct!\n" + "Total: " + num_answered + "\nCorrect: " + num_correct + "\nWrong: " + num_wrong + "\n";
+                alert(txt);
+            } else {
+                num_wrong++;
+                var txt = "Incorrect...\n" + "The correct answer is: " + (num1+num2) + "\nTotal: " + num_answered + "\nCorrect: " + num_correct + "\nWrong: " + num_wrong + "\n";
+                alert(txt);
+            }
+        }
+        
+        function floatAdd() {
+            var num1 = Math.floor(Math.random()*10);
+            var dec1 = Math.floor(Math.random()*10)/10;
+            var num2 = Math.floor(Math.random()*num1);
+            var dec2 = Math.floor(Math.random()*10)/10;
+            num1 = (num1 + dec1);
+            num2 = (num2 + dec2);
+            num1 = Math.round(num1*10)/10;
+            num2 = Math.round(num2*10)/10;
+            var msg = prompt(num1 + " + " + num2);
+            num_answered++;
+            if (parseFloat(msg) == Math.round((num1+num2)*10)/10) {
+                num_correct++;
+                var txt = "Correct!\n" + "Total: " + num_answered + "\nCorrect: " + num_correct + "\nWrong: " + num_wrong + "\n";
+                alert(txt);
+            } else {
+                num_wrong++;
+                var txt = "Incorrect...\n" + "The correct answer is: " + Math.round((num1+num2)*10)/10 + "\nTotal: " + num_answered + "\nCorrect: " + num_correct + "\nWrong: " + num_wrong + "\n";
+                alert(txt);
+            }
+        }
+        
+        function floatSub() {
+            var num1 = Math.floor(Math.random()*10);
+            var dec1 = Math.floor(Math.random()*10)/10;
+            var num2 = Math.floor(Math.random()*num1);
+            var dec2 = Math.floor(Math.random()*10)/10;
+            num1 = (num1 + dec1);
+            num2 = (num2 + dec2);
+            num1 = Math.round(num1*10)/10;
+            num2 = Math.round(num2*10)/10;
+            var msg = prompt(num1 + " - " + num2);
+            num_answered++;
+            if (parseFloat(msg) == Math.round((num1-num2)*10)/10) {
+                num_correct++;
+                var txt = "Correct!\n" + "Total: " + num_answered + "\nCorrect: " + num_correct + "\nWrong: " + num_wrong + "\n";
+                alert(txt);
+            } else {
+                num_wrong++;
+                var txt = "Incorrect...\n" + "The correct answer is: " + Math.round((num1-num2)*10)/10 + "\nTotal: " + num_answered + "\nCorrect: " + num_correct + "\nWrong: " + num_wrong + "\n";
+                alert(txt);
+            }
+        }
+
+        function checkScore() {
+            var txt = "Total: " + num_answered + "\nCorrect: " + num_correct + "\nWrong: " + num_wrong + "\n";
+            alert(txt);
+        }
+
+        function resetScore() {
+            num_answered = 0;
+            num_correct = 0;
+            num_wrong = 0;
+        }
+
     </script>
     <p> Simple Math Quiz </p>
     <button onclick="intAdd()"> Integer Addition </button>
+    <button onclick="intSub()"> Integer Subtraction </button>
+    <button onclick="floatAdd()"> Float Addition </button>
+    <button onclick="floatSub()"> Float Subtraction </button>
+    <button onclick="checkScore()"> Check Score </button>
+    <button onclick="resetScore()"> Reset Score </button>
     </body>
 </html>
