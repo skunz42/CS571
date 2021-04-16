@@ -35,7 +35,7 @@
                 alert(txt);
             } else {
                 num_wrong++;
-                var txt = "Incorrect...\n" + "The correct answer is: " + (num1+num2) + "\nTotal: " + num_answered + "\nCorrect: " + num_correct + "\nWrong: " + num_wrong + "\n";
+                var txt = "Incorrect...\n" + "The correct answer is: " + (num1-num2) + "\nTotal: " + num_answered + "\nCorrect: " + num_correct + "\nWrong: " + num_wrong + "\n";
                 alert(txt);
             }
         }
@@ -45,6 +45,11 @@
             var dec1 = Math.floor(Math.random()*10)/10;
             var num2 = Math.floor(Math.random()*num1);
             var dec2 = Math.floor(Math.random()*10)/10;
+            if (dec2 > dec1) {
+                var temp = dec1;
+                dec1 = dec2;
+                dec2 = dec1;
+            }
             num1 = (num1 + dec1);
             num2 = (num2 + dec2);
             num1 = Math.round(num1*10)/10;
@@ -67,6 +72,11 @@
             var dec1 = Math.floor(Math.random()*10)/10;
             var num2 = Math.floor(Math.random()*num1);
             var dec2 = Math.floor(Math.random()*10)/10;
+            if (dec2 > dec1) {
+                var temp = dec1;
+                dec1 = dec2;
+                dec2 = dec1;
+            }
             num1 = (num1 + dec1);
             num2 = (num2 + dec2);
             num1 = Math.round(num1*10)/10;
@@ -99,8 +109,10 @@
     <p> Simple Math Quiz </p>
     <button onclick="intAdd()"> Integer Addition </button>
     <button onclick="intSub()"> Integer Subtraction </button>
+    <br></br>
     <button onclick="floatAdd()"> Float Addition </button>
     <button onclick="floatSub()"> Float Subtraction </button>
+    <br></br>
     <button onclick="checkScore()"> Check Score </button>
     <button onclick="resetScore()"> Reset Score </button>
     </body>
