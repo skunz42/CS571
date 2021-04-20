@@ -30,3 +30,21 @@ dubhelp (h:t) 0 = [h*2] ++ dubhelp t 1
 dubhelp (h:t) 1 = [h] ++ dubhelp t 0
 
 double lt = dubhelp lt 0
+
+-- Problem 4
+
+union [] [] = []
+union (h:t) lt2
+    | elem h t = union t lt2
+    | elem h lt2 = union t lt2
+    | otherwise = h:union t lt2
+union lt1 (h:t)
+    | elem h t = union lt1 t
+    | elem h lt1 = union lt1 t
+    | otherwise = h:union lt1 t
+
+-- Problem 5
+
+flatten [] = []
+flatten [[a]] = [a]
+flatten (h:t) = h ++ flatten t
